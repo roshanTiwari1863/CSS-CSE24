@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CSS Grid Properties</title>
+<style>
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 120px);
+    gap: 10px;
+
+    /* Main properties */
+    justify-content: center;   /* aligns whole grid horizontally */
+    align-content: center;     /* aligns whole grid vertically */
+
+    justify-items: center;     /* aligns each item horizontally */
+    align-items: center;       /* aligns each item vertically */
+
+    /* OR single shorthand */
+    /* place-items: center;  */
+    
+    height: 350px;
+    background: #eee;
+}
+
+.item {
+    background: lightgreen;
+    padding: 20px;
+    border: 2px solid black;
+    font-size: 20px;
+}
+</style>
+</head>
+<body>
+
+<h2>CSS Grid Alignment Example</h2>
+
+<div class="container">
+  <div class="item">A</div>
+  <div class="item">B</div>
+  <div class="item">C</div>
+  <div class="item">D</div>
+  <div class="item">E</div>
+  <div class="item">F</div>
+</div>
+
+</body>
+</html>
