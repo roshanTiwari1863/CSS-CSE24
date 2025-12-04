@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Colorful CSS Grid — Example</title>
+  <style>
+    /* -----------------------
+       Simple, responsive CSS Grid demo
+       Use this to explain grid properties in viva:
+         - grid-template-columns
+         - gap
+         - justify-items / align-items / place-items
+         - justify-content / align-content
+         - auto-fit + minmax for responsiveness
+       ----------------------- */
+
+    :root{
+      --bg: linear-gradient(135deg,#0f172a 0%, #0b1020 40%, #07263b 100%);
+      --card-radius: 14px;
+      --gap: 18px;
+      --shadow: 0 8px 20px rgba(2,6,23,0.6);
+      --glass: rgba(255,255,255,0.06);
+    }
+
+    /* Page baseline */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: #e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px;
+      gap:20px;
+    }
+
+    .container{
+      width:100%;
+      max-width:1100px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:20px;
+      padding:28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px) saturate(140%);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
+    }
+
+    header h1{
+      margin:0;
+      font-size:20px;
+      letter-spacing:0.4px;
+    }
+    header p{margin:0; opacity:0.8; font-size:13px}
+
+    /* The grid itself. auto-fit + minmax creates responsive columns */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--gap);
+      justify-items: stretch; /* aligns each card horizontally inside its cell */
+      align-items: stretch;   /* aligns each card vertically inside its cell */
+      padding-bottom:8px;
+    }
+
+    /* Each grid item (card) */
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border-radius: var(--card-radius);
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      box-shadow: 0 6px 14px rgba(2,6,23,0.45);
+      transition: transform 300ms cubic-bezier(.2,.9,.2,1), box-shadow 300ms, background 300ms;
+      border: 1px solid rgba(255,255,255,0.03);
+      overflow:hidden;
+      position:relative;
+    }
+
+    /* Color stripe (decorative) */
+    .card::before{
+      content:"";
+      position:absolute;
+      left: -40px;
+      top: -40px;
+      width:160px;
+      height:160px;
+      transform: rotate(25deg);
+      background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      filter: blur(40px);
+      pointer-events:none;
+      opacity:0.6;
+    }
+
+    /* Different colored accents using data attributes */
+    .card[data-accent="pink"]{ --accent: linear-gradient(135deg,#ff6b8a,#ffb199); }
+    .card[data-accent="teal"]{ --accent: linear-gradient(135deg,#00d4ff,#7afcff); }
+    .card[data-accent="lime"]{ --accent: linear-gradient(135deg,#d3ff7a,#a6ff4d); }
+    .card[data-accent="violet"]{ --accent: linear-gradient(135deg,#b388ff,#7ad0ff); }
+    .card[data-accent="gold"]{ --accent: linear-gradient(135deg,#ffd36b,#ff9e5a); }
+    .card[data-accent="cyan"]{ --accent: linear-gradient(135deg,#6be7ff,#9bd6ff); }
+
+    .accent{
+      width:56px;
+      height:56px;
+      border-radius:12px;
+      background:var(--accent, linear-gradient(135deg,#9bd6ff,#7ad0ff));
+      box-shadow: 0 6px 18px rgba(10,18,35,0.6);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      color:#031028;
+      font-size:18px;
+      align-self:flex-start;
+    }
+
+    .title{font-size:16px; font-weight:600; margin-top:6px}
+    .desc{font-size:13px; opacity:0.85}
+
+    .meta{margin-top:auto; display:flex; justify-content:space-between; align-items:center; gap:8px}
+    .badge{font-size:12px; padding:6px 8px; border-radius:999px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.02)}
+
+    /* Hover effects */
+    .card:hover{
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 20px 40px rgba(2,6,23,0.7);
+    }
+
+    .card:hover .accent{ transform: rotate(-6deg) translateY(-4px); }
+
+    /* Make the grid denser on wider screens */
+    @media (min-width:1100px){
+      .grid{ grid-template-columns: repeat(4, 1fr); }
+    }
+
+    @media (min-width:780px) and (max-width:1099px){
+      .grid{ grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width:420px){
+      body{ padding:18px }
+      .container{ padding:16px }
+    }
+
+    /* Small helpful footer for demonstration */
+    footer{opacity:0.8; font-size:12px; margin-top:12px}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Very Excellent Colourful Grid</h1>
+        <p>HTML + CSS Grid — Responsive, colourful and easy to explain for viva</p>
+      </div>
+      <div style="text-align:right">
+        <p style="margin:0">Showing grid demo • 12 items</p>
+      </div>
+    </header>
+
+    <main class="grid">
+      <!-- Use data-accent to pick a color theme for each card -->
+
+      <article class="card" data-accent="pink">
+        <div class="accent">A</div>
+        <div class="title">Aurora</div>
+        <div class="desc">Vivid gradient accent with soft glass backdrop — explain grid cell alignment here.</div>
+        <div class="meta"><div class="badge">CSS Grid</div><div>3 items</div></div>
+      </article>
+
+      <article class="card" data-accent="teal">
+        <div class="accent">B</div>
+        <div class="title">Breeze</div>
+        <div class="desc">Use <code>justify-items</code> and <code>align-items</code> to place content.</div>
+        <div class="meta"><div class="badge">Responsive</div><div>4 items</div></div>
+      </article>
+
+      <article class="card" data-accent="lime">
+        <div class="accent">C</div>
+        <div class="title">Citrus</div>
+        <div class="desc">Auto-fit + minmax keeps columns flexible across screen sizes.</div>
+        <div class="meta"><div class="badge">Auto-fit</div><div>2 items</div></div>
+      </article>
+
+      <article class="card" data-accent="violet">
+        <div class="accent">D</div>
+        <div class="title">Drift</div>
+        <div class="desc">Hover to see elevation and subtle transform effects.</div>
+        <div class="meta"><div class="badge">Hover</div><div>8 items</div></div>
+      </article>
+
+      <article class="card" data-accent="gold">
+        <div class="accent">E</div>
+        <div class="title">Ember</div>
+        <div class="desc">Great for dashboards, portfolios, product cards, etc.</div>
+        <div class="meta"><div class="badge">Cards</div><div>5 items</div></div>
+      </article>
+
+      <article class="card" data-accent="cyan">
+        <div class="accent">F</div>
+        <div class="title">Flux</div>
+        <div class="desc">Each card stretches to fill its grid cell — try resizing the window.</div>
+        <div class="meta"><div class="badge">Stretch</div><div>1 item</div></div>
+      </article>
+
+      <article class="card" data-accent="pink">
+        <div class="accent">G</div>
+        <div class="title">Glow</div>
+        <div class="desc">Cards can contain images, buttons or lists — keep same structure for consistency.</div>
+        <div class="meta"><div class="badge">Consistent</div><div>3 items</div></div>
+      </article>
+
+      <article class="card" data-accent="teal">
+        <div class="accent">H</div>
+        <div class="title">Haze</div>
+        <div class="desc">Good place to explain <code>gap</code> and spacing rules in grid.</div>
+        <div class="meta"><div class="badge">Spacing</div><div>2 items</div></div>
+      </article>
+
+      <article class="card" data-accent="lime">
+        <div class="accent">I</div>
+        <div class="title">Iris</div>
+        <div class="desc">Use data attributes to theme cards without repeating CSS rules.</div>
+        <div class="meta"><div class="badge">Theming</div><div>4 items</div></div>
+      </article>
+
+      <article class="card" data-accent="violet">
+        <div class="accent">J</div>
+        <div class="title">Jolt</div>
+        <div class="desc">Explain how grid cells reflow: columns -> rows as screen narrows.</div>
+        <div class="meta"><div class="badge">Reflow</div><div>6 items</div></div>
+      </article>
+
+      <article class="card" data-accent="gold">
+        <div class="accent">K</div>
+        <div class="title">Kite</div>
+        <div class="desc">Perfect example to show both axis alignment: <code>justify-content</code> & <code>align-content</code>.</div>
+        <div class="meta"><div class="badge">Axis</div><div>7 items</div></div>
+      </article>
+
+      <article class="card" data-accent="cyan">
+        <div class="accent">L</div>
+        <div class="title">Lumen</div>
+        <div class="desc">Small and simple — use this in viva to display grid property names.</div>
+        <div class="meta"><div class="badge">Demo</div><div>0 items</div></div>
+      </article>
+
+    </main>
+
+    <footer>
+      Tip: For viva, point to <code>grid-template-columns: repeat(auto-fit, minmax(180px,1fr))</code> — it's the core of responsive grids.
+    </footer>
+  </div>
+</body>
+</html>
