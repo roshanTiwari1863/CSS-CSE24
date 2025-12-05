@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Grid Example</title>
+
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+            gap: 15px;                               /* space between boxes */
+            padding: 20px;
+        }
+
+        .box {
+            background-color: #ff7675;               /* colourful box */
+            padding: 30px;
+            text-align: center;
+            color: white;
+            font-size: 20px;
+            border-radius: 10px;
+        }
+
+        .box:nth-child(2) { background-color: #74b9ff; }
+        .box:nth-child(3) { background-color: #55efc4; }
+        .box:nth-child(4) { background-color: #a29bfe; }
+        .box:nth-child(5) { background-color: #fdcb6e; }
+        .box:nth-child(6) { background-color: #fab1a0; }
+    </style>
+</head>
+
+<body>
+
+    <h2>Colorful CSS Grid</h2>
+
+    <div class="grid-container">
+        <div class="box">Box 1</div>
+        <div class="box">Box 2</div>
+        <div class="box">Box 3</div>
+        <div class="box">Box 4</div>
+        <div class="box">Box 5</div>
+        <div class="box">Box 6</div>
+    </div>
+
+</body>
+</html>
